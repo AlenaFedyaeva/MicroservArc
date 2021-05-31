@@ -1,10 +1,11 @@
-FROM golang:alpine
+FROM golang:alpine as builder
+
 
 # Set the Current Working Directory inside the container
-WORKDIR $PWD/golang
-
+WORKDIR /golang
 # Copy everything from the current directory to the PWD (Present Working Directory) inside the container
 COPY . .
+
 
 # Download all the dependencies
 RUN go get -d -v ./...
@@ -12,8 +13,13 @@ RUN go get -d -v ./...
 # Install the package
 RUN go install -v ./...
 
-# This container exposes port 8080 to the outside world
-EXPOSE 8080
 
-# Run the executable
-CMD ["golang"]
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
+
+
+FROM scratch
+
+COPY --from=builder /golang/server /
+
+EXPOSE 8080
+CMD ["/server"]
