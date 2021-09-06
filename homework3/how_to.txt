@@ -1,0 +1,9 @@
+0) 1.  export KUBECONFIG=/path/kubernetes-gb_kubeconfig.yaml
+1) go https://github.com/storax/kubedoom 
+2) download manifest 
+https://github.com/storax/kubedoom/tree/master/manifest
+3)  kubectl apply -k manifest/
+4) check pod
+ kubectl get pods --namespace=kubedoom
+5) kubectl port-forward  kubedoom-57b69fdbc-kll56   5900:5900 -n kubedoom
+6) connect to localhost:5900 via vnc client 
