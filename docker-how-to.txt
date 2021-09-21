@@ -1,0 +1,67 @@
+все очистить   -   docker system prune 
+
+
+-образы 
+  doker images
+  docler rmi $(docker images)
+
+- delete volumes
+	docker prune
+
+1) запуск в итеративном режиме 
+docker run -it alpine sh
+docker run -it alpine (sh)
+2) запуск в режиме демона
+docker -d nginx
+3) убить всe
+
+docker rm -f $(docker ps -aq) (-f = force flag, q=выводит id, для того чтобы получился конвееер)
+
+4) docker ps -a (посмотреть все процессы, запущенные и остановленные)
+
+
+5) docker ps (посмотреть все runnung процессы)
+
+6) проброс портов на примере  nginx
+
+docker run -d -p 8080:80 nginx:1.21-alpine  
+
+проверить:
+curl localhost:8080
+
+
+
+6) просмотр логов в реальном времени
+
+docker logs --tail 1 -f  0da9c22529bc (id или  name запущенного контейнера)
+
+
+7) выполнить другую команду внутри контейнера (выполним внутри nginx команду ls)
+
+ docker exec -it flamboyant_liskov ls /
+
+Для домашней работы
+------------------------------------------------------------
+
+8) docker save image_id > ttt.tar.gz
+
+9) docker commit image_id 
+
+10)
+
+ docker build . -t py-app:v1
+
+
+
+11) docker login --username=alenafedyaeva
+
+12)docker tag py-app:v1 alenafedyaeva/microserv-arc
+
+13) docker push alenafedyaeva/microserv-arc
+
+14) docker run -d -p 8080:8080 goapp
+---------------------------------------------------------------
+Docker compose
+
+15) create and start containers (-d = detaced mode/in backround)
+docker-compose up -d
